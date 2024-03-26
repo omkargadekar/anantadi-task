@@ -10,7 +10,7 @@ const LogIn = () => {
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
-    e.preventdefault();
+    e.preventDefault();
 
     const user = new CognitoUser({
       Username: email,
