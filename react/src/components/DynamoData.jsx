@@ -4,6 +4,7 @@ import axios from "axios";
 const DynamoData = ({ userId }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [error, setError] = useState(null);
+  const [description, setdescription] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,14 +16,27 @@ const DynamoData = ({ userId }) => {
         setUserInfo(response.data);
       } catch (error) {
         setError(error);
+        setdescription(true);
       }
     };
 
     fetchData();
   }, [userId]);
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
+  if (error && description) {
+    return (
+      <div>
+        <br />
+        <br />
+        <p>Error: {error.message}</p>
+        <br />
+        <p style={{ color: "orange" }}>
+          Description: In the AWS console, the CORS has been set to
+          "http://localhost:3000" and may not be configured correctly. please
+          consider using CORS unblock extenstion or postman for testing
+        </p>
+      </div>
+    );
   }
 
   return (

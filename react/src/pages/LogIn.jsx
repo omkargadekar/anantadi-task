@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -31,6 +32,7 @@ const LogIn = () => {
       onFailure: (err) => {
         console.log(err);
         alert("Could Not Log In");
+        setError(true);
       },
     });
   };
@@ -46,6 +48,7 @@ const LogIn = () => {
       }}
     >
       <h1>LogIn</h1>
+
       <form onSubmit={handleLogin}>
         <TextField
           name="email"
@@ -68,6 +71,12 @@ const LogIn = () => {
         <br />
         <br />
         <Button type="submit">Log In</Button>
+        {error && (
+          <p style={{ color: "red" }}>
+            Login is only possible when your account is confirm in the AWS
+            console
+          </p>
+        )}
       </form>
     </div>
   );
